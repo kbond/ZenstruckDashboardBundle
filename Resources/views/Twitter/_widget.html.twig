@@ -1,0 +1,15 @@
+<div class="dashboard-widget">
+    {% if widget.title %}
+        <div class="dashboard-widget-title">
+            {{ widget.title }}
+        </div>
+    {% endif %}
+
+    <div class="dashboard-widget-content"{% if widget.route and widget.ajax %} data-url="{{ path(widget.route, widget.params) }}"{% endif %}>
+        {% if widget.route and not widget.ajax %}
+            {% render path(widget.route, widget.params) %}
+        {% else %}
+            {% render widget.controller with widget.params %}
+        {% endif %}
+    </div>
+</div>

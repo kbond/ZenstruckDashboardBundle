@@ -1,0 +1,23 @@
+<ul class="nav nav-list">
+    {% for item in menu %}
+        {% if item.uri %}
+            <li><a href="{{ item.uri }}">{{ item.label|raw }}</a></li>
+        {% else %}
+            <li class="nav-header">{{ item.label|raw }}</li>
+            {% for childItem in item.children %}
+                {% if childItem.uri %}
+                    <li>
+                        <a href="{{ childItem.uri }}">
+                            {% if childItem.extra('icon') %}
+                                <i class="{{ childItem.extra('icon') }}"></i>
+                            {% endif %}
+                            {{ childItem.label|raw }}
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="divider"></li>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endfor %}
+</ul>

@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="zenstruck_dashboard.controller.class">Zenstruck\Bundle\DashboardBundle\Controller\DashboardController</parameter>
+        <parameter key="zenstruck_dashboard.manager.class">Zenstruck\Bundle\DashboardBundle\Dashboard\DashboardManager</parameter>
+    </parameters>
+
+    <services>
+        <service id="zenstruck_dashboard.manager" class="%zenstruck_dashboard.manager.class%">
+            <argument>%zenstruck_dashboard.config%</argument>
+            <argument type="service" id="router" />
+            <argument type="service" id="security.context" />
+        </service>
+
+        <service id="zenstruck_dashboard.controller" class="%zenstruck_dashboard.controller.class%">
+            <argument type="service" id="templating" />
+            <argument type="service" id="zenstruck_dashboard.manager" />
+        </service>
+    </services>
+</container>

@@ -1,0 +1,66 @@
+<div class="navbar navbar-inverse navbar-static-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+
+            <a class="brand" href="{{ path('zenstruck_dashboard') }}">{{ manager.title }}</a>
+
+            <div class="nav-collapse collapse">
+                <ul class="nav">
+                    {{ _self.bootstrap_menu(manager.menu('primary')) }}
+                </ul>
+
+                {% set secondaryMenu = manager.menu('secondary') %}
+                {% if secondaryMenu|length %}
+                    <ul class="nav pull-right">
+                        {{ _self.bootstrap_menu(secondaryMenu) }}
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% macro bootstrap_menu(menu) %}
+    {% for section in menu %}
+        {% spaceless %}
+            {% if section.extra('flat') %}
+                {{ _self.bootstrap_menu_item(section) }}
+            {% else %}
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        {%- if section.extra('icon') %}
+                            <i class="{{ section.extra('icon') }} icon-white"></i>
+                        {% endif %}
+                        {{ section.label|raw }}
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        {% for item in section %}
+                            {{ _self.bootstrap_menu_item(item) }}
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endif %}
+        {% endspaceless %}
+    {% endfor %}
+{% endmacro %}
+
+{% macro bootstrap_menu_item(item) %}
+    {% if item.uri %}
+        <li>
+            <a href="{{ item.uri }}">
+                {% if item.extra('icon') %}
+                    <i class="{{ item.extra('icon') }}"></i>
+                {% endif %}
+                {{ item.label|raw }}
+            </a>
+        </li>
+    {% else %}
+    <li class="divider"></li>
+    {% endif %}
+{% endmacro %}

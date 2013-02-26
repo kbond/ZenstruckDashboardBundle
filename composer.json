@@ -1,0 +1,22 @@
+{
+    "name": "zenstruck/dashboard-bundle",
+    "description": "Provides a configurable administration menu and dashboard.",
+    "keywords": ["dashboard", "admin", "backend", "administration"],
+    "homepage": "http://zenstruck.com/project/ZenstruckDashboardBundle",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Kevin Bond",
+            "email": "kevinbond@gmail.com"
+        }
+    ],
+    "require": {
+        "symfony/symfony": "~2.0",
+        "knp/menu": "~1.1"
+    },
+    "autoload": {
+        "psr-0": { "Zenstruck\\Bundle\\DashboardBundle": "" }
+    },
+    "target-dir": "Zenstruck/Bundle/DashboardBundle"
+}

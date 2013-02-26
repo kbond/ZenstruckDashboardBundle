@@ -1,0 +1,37 @@
+{% extends manager.layout %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block body %}
+    <div class="row">
+        {% set column1 = manager.widgets('column1') %}
+        {% set column2 = manager.widgets('column2') %}
+        {% set column3 = manager.widgets('column3') %}
+
+        {% if not column1|length and not column2|length and not column3|length %}
+            <div class="span12">
+                {{ _self.widget_column(manager.widgets) }}
+            </div>
+        {% else %}
+            <div class="{% block column1_class %}span4{% endblock %}">
+                {{ _self.widget_column(column1) }}
+            </div>
+            {% if column2|length %}
+                <div class="{% block column2_class %}span4{% endblock %}">
+                    {{ _self.widget_column(column2) }}
+                </div>
+            {% endif %}
+            {% if column3|length %}
+                <div class="{% block column3_class %}span4{% endblock %}">
+                    {{ _self.widget_column(column3) }}
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% macro widget_column(widgets) %}
+    {% for widget in widgets %}
+        {% include 'ZenstruckDashboardBundle:Twitter:_widget.html.twig' with { 'widget': widget } %}
+    {% endfor %}
+{% endmacro %}
