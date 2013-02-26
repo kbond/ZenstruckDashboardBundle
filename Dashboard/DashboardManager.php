@@ -111,15 +111,12 @@ class DashboardManager
         $menu = new MenuItem('root', new RouterAwareFactory($this->urlGenerator));
 
         foreach ($this->config['menu'] as $sectionName => $section) {
-            if ($label = $section['label']) {
-                $sectionName = $label;
-            }
-
             $nested = true;
 
             if ($section['nested']) {
+                $label = $section['label'] ? $section['label'] : $sectionName;
                 $subMenu = $menu->addChild($sectionName);
-                $subMenu->setLabel($this->parseText($sectionName));
+                $subMenu->setLabel($this->parseText($label));
                 $subMenu->setExtra('group', $section['group']);
 
                 if ($icon = $section['icon']) {
@@ -131,15 +128,12 @@ class DashboardManager
             }
 
             foreach ($section['items'] as $itemName => $item) {
-                if ($label = $item['label']) {
-                    $itemName = $label;
-                }
-
                 // security check
                 if (($item['role'] && $this->securityContext->getToken() && $this->securityContext->isGranted($item['role'])) || !$item['role']) {
                     $menuItem = $subMenu->addChild($itemName, $item);
                     $menuItem->setExtra('group', $section['group']);
-                    $menuItem->setLabel($this->parseText($itemName));
+                    $label = $item['label'] ? $item['label'] : $itemName;
+                    $menuItem->setLabel($this->parseText($label));
 
                     if (!$nested) {
                         $menuItem->setExtra('flat', true);
