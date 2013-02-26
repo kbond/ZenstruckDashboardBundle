@@ -99,6 +99,32 @@ class DashboardManager
         return array();
     }
 
+    public function callServiceMethod($alias, $method = null)
+    {
+        if (!$this->hasService($alias)) {
+            throw new \Exception(sprintf('The service with alias "%s" does not exist.', $alias));
+        }
+
+        $service = $this->getService($alias);
+
+        if ($method) {
+            if (method_exists($service, $method)) {
+                return (string) $service->$method();
+            }
+
+            $getMethod = 'get'.ucfirst($method);
+
+            if (!method_exists($service, $getMethod)) {
+                throw new \InvalidArgumentException(sprintf('"%s" does not have the methods: "%s" or "%s"', get_class($service), $method, $getMethod));
+            }
+
+            return (string) $service->$getMethod();
+        }
+
+        // use service's `__toString` method
+        return (string) $service;
+    }
+
     /**
      * @return \Knp\Menu\MenuItem
      */
@@ -172,31 +198,5 @@ class DashboardManager
             }, $text);
 
         return $text;
-    }
-
-    protected function callServiceMethod($alias, $method = null)
-    {
-        if (!$this->hasService($alias)) {
-            throw new \Exception(sprintf('The service with alias "%s" does not exist.', $alias));
-        }
-
-        $service = $this->getService($alias);
-
-        if ($method) {
-            if (method_exists($service, $method)) {
-                return (string) $service->$method();
-            }
-
-            $getMethod = 'get'.ucfirst($method);
-
-            if (!method_exists($service, $getMethod)) {
-                throw new \InvalidArgumentException(sprintf('"%s" does not have the methods: "%s" or "%s"', get_class($service), $method, $getMethod));
-            }
-
-            return (string) $service->$getMethod();
-        }
-
-        // use service's `__toString` method
-        return (string) $service;
     }
 }
