@@ -40,6 +40,9 @@
     border-top: 1px solid #ccc;
     border-top: 1px solid rgba(0, 0, 0, 0.2);
 }
+.dashboard-widget-content *:last-child {
+    margin-bottom: 0;
+}
 .dashboard-widget-menu {
     padding-left: 0;
     padding-right: 0;

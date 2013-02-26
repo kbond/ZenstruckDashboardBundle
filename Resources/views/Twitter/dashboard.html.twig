@@ -32,6 +32,8 @@
 
 {% macro widget_column(widgets) %}
     {% for widget in widgets %}
-        {% include 'ZenstruckDashboardBundle:Twitter:_widget.html.twig' with { 'widget': widget } %}
+        {% if (widget.role and is_granted(widget.role)) or not widget.role %}
+            {% include 'ZenstruckDashboardBundle:Twitter:_widget.html.twig' with { 'widget': widget } %}
+        {% endif %}
     {% endfor %}
 {% endmacro %}

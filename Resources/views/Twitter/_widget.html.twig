@@ -8,6 +8,8 @@
     <div class="dashboard-widget-content"{% if widget.route and widget.ajax %} data-url="{{ path(widget.route, widget.params) }}"{% endif %}>
         {% if widget.route and not widget.ajax %}
             {% render path(widget.route, widget.params) %}
+        {% elseif widget.template %}
+            {% include widget.template with widget %}
         {% else %}
             {% render widget.controller with widget.params %}
         {% endif %}

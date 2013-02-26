@@ -19,7 +19,7 @@ class DashboardController
 
     public function dashboardAction()
     {
-        $content = $this->templating->render('ZenstruckDashboardBundle:Twitter:dashboard.html.twig', array(
+        $content = $this->templating->render($this->dashboardManager->getDashboardTemplate(), array(
                 'manager' => $this->dashboardManager
             ));
 

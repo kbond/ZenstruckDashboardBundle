@@ -15,6 +15,7 @@ class DashboardManager
     protected $config;
     protected $urlGenerator;
     protected $securityContext;
+    protected $services = array();
 
     /** @var MenuItem */
     protected $menu;
@@ -26,9 +27,29 @@ class DashboardManager
         $this->securityContext = $securityContext;
     }
 
+    public function registerService($name, $service)
+    {
+        $this->services[$name] = $service;
+    }
+
+    public function hasService($name)
+    {
+        return array_key_exists($name, $this->services);
+    }
+
+    public function getService($name)
+    {
+        return $this->services[$name];
+    }
+
     public function getLayout()
     {
         return $this->config['layout'];
+    }
+
+    public function getDashboardTemplate()
+    {
+        return $this->config['template'];
     }
 
     public function getTitle()
@@ -115,9 +136,7 @@ class DashboardManager
                 }
 
                 // security check
-                if ($item['role'] && $this->securityContext->getToken() && !$this->securityContext->isGranted($item['role'])) {
-                    continue;
-                } else {
+                if (($item['role'] && $this->securityContext->getToken() && $this->securityContext->isGranted($item['role'])) || !$item['role']) {
                     $menuItem = $subMenu->addChild($itemName, $item);
                     $menuItem->setExtra('group', $section['group']);
                     $menuItem->setLabel($this->parseText($itemName));
@@ -147,29 +166,43 @@ class DashboardManager
 
         // check for {{foo}} or {{foo:bar}} syntax
         $text = preg_replace_callback('/{{(\w+)(:(\w+))?}}/', function($matches) use ($context) {
-                // create getter
-                $method = 'get'.ucfirst($matches[1]);
-
-                $ret = $context->$method();
+                $alias = $matches[1];
+                $method = null;
 
                 // check for {{foo:bar}} syntax
                 if (isset($matches[3])) {
                     $method = $matches[3];
-
-                    // if {{foo:bar}} syntax is used, call bar method
-                    if (is_object($ret) && method_exists($ret, $method)) {
-                        $ret = $ret->$method();
-                    }
                 }
 
-                return (string) $ret;
+                return $context->callServiceMethod($alias, $method);
             }, $text);
 
         return $text;
     }
 
-    protected function getUser()
+    protected function callServiceMethod($alias, $method = null)
     {
-        return $this->securityContext->getToken()->getUser();
+        if (!$this->hasService($alias)) {
+            throw new \Exception(sprintf('The service with alias "%s" does not exist.', $alias));
+        }
+
+        $service = $this->getService($alias);
+
+        if ($method) {
+            if (method_exists($service, $method)) {
+                return (string) $service->$method();
+            }
+
+            $getMethod = 'get'.ucfirst($method);
+
+            if (!method_exists($service, $getMethod)) {
+                throw new \InvalidArgumentException(sprintf('"%s" does not have the methods: "%s" or "%s"', get_class($service), $method, $getMethod));
+            }
+
+            return (string) $service->$getMethod();
+        }
+
+        // use service's `__toString` method
+        return (string) $service;
     }
 }

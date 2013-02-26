@@ -20,6 +20,10 @@ class ZenstruckDashboardExtension extends Extension
         $container->setParameter('zenstruck_dashboard.config', $config);
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('services.xml');
+        $loader->load('dashboard.xml');
+
+        if ($config['user_service']) {
+            $loader->load('user_service.xml');
+        }
     }
 }
