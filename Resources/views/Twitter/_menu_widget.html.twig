@@ -3,7 +3,12 @@
         {% if item.uri %}
             <li><a href="{{ item.uri }}">{{ item.label|raw }}</a></li>
         {% else %}
-            <li class="nav-header">{{ item.label|raw }}</li>
+            {% if item.children|length %}
+                <li class="nav-header">{{ item.label|raw }}</li>
+            {% else %}
+                <li class="divider"></li>
+            {% endif %}
+
             {% for childItem in item.children %}
                 {% if childItem.uri %}
                     <li>
