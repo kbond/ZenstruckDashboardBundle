@@ -1,21 +1,27 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8" />
-    <title>{% block title %}{% endblock %}</title>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}{% endblock %}</title>
 
-    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css" rel="stylesheet" />
-    <link href="{{ asset('bundles/zenstruckdashboard/css/twitter.css') }}" rel="stylesheet" />
-    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-</head>
-<body>
-    {% render "zenstruck_dashboard.controller:menuAction" %}
-    <div class="container">
-        <h1>{{ block('title') }}</h1>
-        {% block body %}{% endblock %}
-    </div>
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css" rel="stylesheet" />
+        <link href="{{ asset('bundles/zenstruckdashboard/css/twitter.css') }}" rel="stylesheet" />
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        {% render "zenstruck_dashboard.controller:menuAction" %}
+        <div class="container">
+            <h1>{{ block('title') }}</h1>
+            {% block body %}{% endblock %}
+        </div>
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/js/bootstrap.min.js"></script>
-</body>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/js/bootstrap.min.js"></script>
+        <script src="{{ asset('bundles/zenstruckdashboard/js/helper.js') }}"></script>
+        <script>
+            $(function() {
+                ZenstruckDashboardHelper.initialize();
+            });
+        </script>
+    </body>
 </html>
