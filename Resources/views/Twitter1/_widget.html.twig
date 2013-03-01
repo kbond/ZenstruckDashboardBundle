@@ -1,0 +1,15 @@
+{% extends 'ZenstruckDashboardBundle:Twitter:_widget.html.twig' %}
+
+{% block widget_controller %}
+    {% render widget.content with widget.params %}
+{% endblock %}
+
+{% block widget_route %}
+    {% if 'hinclude' == widget.include_type %}
+        {% render url with {}, { 'standalone': 'js' } %}
+    {% elseif 'esi' == widget.include_type %}
+        {% render url with {}, { 'standalone': true } %}
+    {% else %}
+        {% render url %}
+    {% endif %}
+{% endblock %}

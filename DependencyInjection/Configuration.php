@@ -16,7 +16,7 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('zenstruck_dashboard');
 
-        $defaultTheme = '1' === Kernel::MINOR_VERSION ? 'ZenstruckDashboardBundle:Twitter' : 'ZenstruckDashboardBundle:Twitter1';
+        $defaultTheme = '1' === Kernel::MINOR_VERSION ? 'ZenstruckDashboardBundle:Twitter1' : 'ZenstruckDashboardBundle:Twitter2';
 
         $widgetContentTypes = array('route', 'controller', 'template');
         $widgetIncludeTypes = array('embed', 'hinclude', 'esi', 'ajax');
