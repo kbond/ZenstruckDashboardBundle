@@ -12,6 +12,13 @@ use Zenstruck\Bundle\DashboardBundle\DependencyInjection\Configuration;
  */
 class DashboardManagerTest extends \PHPUnit_Framework_TestCase
 {
+    public function testGetFullTemplateName()
+    {
+        $manager = $this->getManager();
+
+        $this->assertEquals('ZenstruckDashboardBundle:Twitter:_foo.html.twig', $manager->getFullTemplateName('_foo.html.twig'));
+    }
+
     public function testGetMenu()
     {
         $manager = $this->getManager();
