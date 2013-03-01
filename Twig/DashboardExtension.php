@@ -40,7 +40,7 @@ class DashboardExtension extends \Twig_Extension
     public function renderWidget($name)
     {
         if ($widget = $this->dashboard->getWidget($name)) {
-            return $this->environment->render('ZenstruckDashboardBundle:Twitter:_widget.html.twig', array(
+            return $this->environment->render($this->dashboard->getFullTemplateName('_widget.html.twig'), array(
                     'widget' => $widget,
                     'dashboard' => $this->dashboard
                 ));

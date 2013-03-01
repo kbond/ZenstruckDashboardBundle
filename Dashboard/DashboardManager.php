@@ -16,6 +16,9 @@ class DashboardManager
     protected $urlGenerator;
     protected $securityContext;
     protected $services = array();
+    protected $theme;
+    protected $dashboardTemplate;
+    protected $layout;
 
     /** @var MenuItem */
     protected $menu;
@@ -25,6 +28,9 @@ class DashboardManager
         $this->config = $config;
         $this->urlGenerator = $urlGenerator;
         $this->securityContext = $securityContext;
+        $this->theme = $config['theme'];
+        $this->dashboardTemplate = $config['dashboard_template'] ? $config['dashboard_template'] : $this->getFullTemplateName('dashboard.html.twig');
+        $this->layout = $config['layout'] ? $config['layout'] : $this->getFullTemplateName('layout.html.twig');
     }
 
     public function registerService($name, $service)
@@ -44,12 +50,22 @@ class DashboardManager
 
     public function getLayout()
     {
-        return $this->config['layout'];
+        return $this->layout;
     }
 
     public function getDashboardTemplate()
     {
-        return $this->config['template'];
+        return $this->dashboardTemplate;
+    }
+
+    public function getFullTemplateName($template)
+    {
+        return trim($this->getTheme(), ':').':'.$template;
+    }
+
+    public function getTheme()
+    {
+        return $this->theme;
     }
 
     public function getTitle()

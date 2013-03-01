@@ -28,7 +28,7 @@ class DashboardController
 
     public function menuAction()
     {
-        $content = $this->templating->render('ZenstruckDashboardBundle:Twitter:_menu.html.twig', array(
+        $content = $this->templating->render($this->dashboardManager->getFullTemplateName('_menu.html.twig'), array(
                 'manager' => $this->dashboardManager
             ));
 
@@ -45,7 +45,7 @@ class DashboardController
             $menu = $this->dashboardManager->getMenu();
         }
 
-        $content = $this->templating->render('ZenstruckDashboardBundle:Twitter:_menu_widget.html.twig', array(
+        $content = $this->templating->render($this->dashboardManager->getFullTemplateName('_menu_widget.html.twig'), array(
                 'menu' => $menu
             ));
 

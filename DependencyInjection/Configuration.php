@@ -4,6 +4,7 @@ namespace Zenstruck\Bundle\DashboardBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
+use Symfony\Component\HttpKernel\Kernel;
 
 class Configuration implements ConfigurationInterface
 {
@@ -15,6 +16,8 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('zenstruck_dashboard');
 
+        $defaultTheme = '1' === Kernel::MINOR_VERSION ? 'ZenstruckDashboardBundle:Twitter' : 'ZenstruckDashboardBundle:Twitter1';
+
         $widgetContentTypes = array('route', 'controller', 'template');
         $widgetIncludeTypes = array('embed', 'hinclude', 'esi', 'ajax');
 
@@ -22,8 +25,9 @@ class Configuration implements ConfigurationInterface
             ->children()
                 ->booleanNode('user_service')->defaultFalse()->end()
                 ->scalarNode('title')->defaultValue('Administration')->end()
-                ->scalarNode('template')->defaultValue('ZenstruckDashboardBundle:Twitter:dashboard.html.twig')->end()
-                ->scalarNode('layout')->defaultValue('ZenstruckDashboardBundle:Twitter:layout.html.twig')->end()
+                ->scalarNode('theme')->defaultValue($defaultTheme)->end()
+                ->scalarNode('dashboard_template')->defaultNull()->end()
+                ->scalarNode('layout')->defaultNull()->end()
                 ->arrayNode('widgets')
                     ->useAttributeAsKey('name')
                     ->prototype('array')
