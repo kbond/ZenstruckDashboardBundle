@@ -15,6 +15,9 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('zenstruck_dashboard');
 
+        $widgetContentTypes = array('route', 'controller', 'template');
+        $widgetIncludeTypes = array('embed', 'hinclude', 'esi', 'ajax');
+
         $rootNode
             ->children()
                 ->booleanNode('user_service')->defaultFalse()->end()
@@ -26,19 +29,30 @@ class Configuration implements ConfigurationInterface
                     ->prototype('array')
                         ->children()
                             ->scalarNode('title')->defaultNull()->end()
-                            ->scalarNode('controller')->defaultNull()->end()
-                            ->scalarNode('route')->defaultNull()->end()
-                            ->scalarNode('template')->defaultNull()->end()
-                            ->booleanNode('ajax')->defaultFalse()->end()
+                            ->scalarNode('content')->isRequired()->end()
+                            ->scalarNode('content_type')
+                                ->defaultValue('controller')
+                                ->info(implode(', ', $widgetContentTypes))
+                                ->validate()
+                                    ->ifNotInArray($widgetContentTypes)
+                                    ->thenInvalid('Content type %s is not supported. Please choose one of '.json_encode($widgetContentTypes))
+                                ->end()
+                            ->end()
+                            ->scalarNode('include_type')
+                                ->defaultValue('embed')
+                                ->info(implode(', ', $widgetIncludeTypes))
+                                ->validate()
+                                    ->ifNotInArray($widgetIncludeTypes)
+                                    ->thenInvalid('Include type %s is not supported. Please choose one of '.json_encode($widgetIncludeTypes))
+                                ->end()
+                            ->end()
                             ->scalarNode('group')->defaultNull()->end()
                             ->scalarNode('role')->defaultNull()->end()
                             ->variableNode('params')->defaultValue(array())->end()
                         ->end()
                         ->validate()
-                            ->ifTrue(function($v) { return !($v['controller'] || $v['route'] || $v['template']); })
-                            ->thenInvalid('You must specify either a template, controller or a route.')
-                            ->ifTrue(function($v) { return ($v['ajax'] && !$v['route']); })
-                            ->thenInvalid('When using an ajax widget, a route must be set.')
+                            ->ifTrue(function($v) { return 'ajax' === $v['include_type'] && 'route' !== $v['content_type']; })
+                            ->thenInvalid('include_type ajax requires content_type route')
                         ->end()
                     ->end()
                 ->end()
