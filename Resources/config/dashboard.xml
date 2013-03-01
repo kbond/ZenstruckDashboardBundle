@@ -7,6 +7,7 @@
     <parameters>
         <parameter key="zenstruck_dashboard.controller.class">Zenstruck\Bundle\DashboardBundle\Controller\DashboardController</parameter>
         <parameter key="zenstruck_dashboard.manager.class">Zenstruck\Bundle\DashboardBundle\Dashboard\DashboardManager</parameter>
+        <parameter key="zenstruck_dashboard.twig_extension.class">Zenstruck\Bundle\DashboardBundle\Twig\DashboardExtension</parameter>
     </parameters>
 
     <services>
@@ -19,6 +20,11 @@
         <service id="zenstruck_dashboard.controller" class="%zenstruck_dashboard.controller.class%">
             <argument type="service" id="templating" />
             <argument type="service" id="zenstruck_dashboard.manager" />
+        </service>
+
+        <service id="zenstruck_dashboard.twig_extension" class="%zenstruck_dashboard.twig_extension.class%" public="false">
+            <argument type="service" id="zenstruck_dashboard.manager" />
+            <tag name="twig.extension" />
         </service>
     </services>
 </container>

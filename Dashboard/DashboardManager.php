@@ -68,6 +68,22 @@ class DashboardManager
             });
     }
 
+    public function getWidget($name)
+    {
+        if (!isset($this->config['widgets'][$name])) {
+            throw new \InvalidArgumentException(sprintf('Widget "%s" does not exist.', $name));
+        }
+
+        $widget = $this->config['widgets'][$name];
+
+        // security check
+        if (($widget['role'] && $this->securityContext->getToken() && $this->securityContext->isGranted($widget['role'])) || !$widget['role']) {
+            return $widget;
+        }
+
+        return null;
+    }
+
     /**
      * @param $group
      *
