@@ -2,7 +2,6 @@
 
 namespace Zenstruck\Bundle\DashboardBundle\Twig;
 
-use Symfony\Component\Templating\EngineInterface;
 use Zenstruck\Bundle\DashboardBundle\Dashboard\DashboardManager;
 
 /**
@@ -33,7 +32,8 @@ class DashboardExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            'zenstruck_widget' => new \Twig_Function_Method($this, 'renderWidget', array('is_safe' => array('html')))
+            'zenstruck_widget' => new \Twig_Function_Method($this, 'renderWidget', array('is_safe' => array('html'))),
+            'zenstruck_menu' => new \Twig_Function_Method($this, 'renderMenu', array('is_safe' => array('html'))),
         );
     }
 
@@ -47,5 +47,12 @@ class DashboardExtension extends \Twig_Extension
         }
 
         return null;
+    }
+
+    public function renderMenu()
+    {
+        return $this->environment->render($this->dashboard->getFullTemplateName('_menu.html.twig'), array(
+                'dashboard' => $this->dashboard
+            ));
     }
 }

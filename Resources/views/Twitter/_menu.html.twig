@@ -7,14 +7,14 @@
                 <span class="icon-bar"></span>
             </a>
 
-            <a class="brand" href="{{ path('zenstruck_dashboard') }}">{{ manager.title }}</a>
+            <a class="brand" href="{{ path('zenstruck_dashboard') }}">{{ dashboard.title }}</a>
 
             <div class="nav-collapse collapse">
                 <ul class="nav">
-                    {{ _self.bootstrap_menu(manager.menu('primary')) }}
+                    {{ _self.bootstrap_menu(dashboard.menu('primary')) }}
                 </ul>
 
-                {% set secondaryMenu = manager.menu('secondary') %}
+                {% set secondaryMenu = dashboard.menu('secondary') %}
                 {% if secondaryMenu|length %}
                     <ul class="nav pull-right">
                         {{ _self.bootstrap_menu(secondaryMenu) }}

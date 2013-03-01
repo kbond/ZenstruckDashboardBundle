@@ -12,9 +12,8 @@
         {% endblock %}
     </head>
     <body>
-        {% block menu %}
-            {{ render(controller('zenstruck_dashboard.controller:menuAction')) }}
-        {% endblock %}
+        {{ zenstruck_menu() }}
+
         <div class="container">
             <h1>{{ block('title') }}</h1>
             {% block body %}{% endblock %}

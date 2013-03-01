@@ -26,15 +26,6 @@ class DashboardController
         return new Response($content);
     }
 
-    public function menuAction()
-    {
-        $content = $this->templating->render($this->dashboardManager->getFullTemplateName('_menu.html.twig'), array(
-                'manager' => $this->dashboardManager
-            ));
-
-        return new Response($content);
-    }
-
     public function menuWidgetAction($group = null, $section = null)
     {
         if ($group) {

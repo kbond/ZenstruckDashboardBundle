@@ -1,0 +1,22 @@
+<div class="dashboard-widget">
+    {% if widget.title %}
+        <div class="dashboard-widget-title">
+            {{ widget.title }}
+        </div>
+    {% endif %}
+
+    {% set ajax = 'ajax' == widget.include_type %}
+
+    <div class="dashboard-widget-content{% if ajax %} dashboard-widget-ajax{% endif %}"{% if ajax %} data-url="{{ path(widget.content, widget.params) }}"{% endif %}>
+        {% if not ajax %}
+            {% block widget_content %}
+                {% if dashboard.symfony21 %}
+                    {# use Symfony 2.1 render syntax  #}
+                    {% include 'ZenstruckDashboardBundle:BC:_widget_inner.html.twig' with { 'widget': widget } %}
+                {% else %}
+                    {% include dashboard.fullTemplateName('_widget_inner.html.twig') with { 'widget': widget } %}
+                {% endif %}
+            {% endblock %}
+        {% endif %}
+    </div>
+</div>

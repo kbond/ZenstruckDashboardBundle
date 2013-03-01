@@ -4,6 +4,7 @@ namespace Zenstruck\Bundle\DashboardBundle\Dashboard;
 
 use Knp\Menu\MenuItem;
 use Knp\Menu\Silex\RouterAwareFactory;
+use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
@@ -31,6 +32,11 @@ class DashboardManager
         $this->theme = $config['theme'];
         $this->dashboardTemplate = $config['dashboard_template'] ? $config['dashboard_template'] : $this->getFullTemplateName('dashboard.html.twig');
         $this->layout = $config['layout'] ? $config['layout'] : $this->getFullTemplateName('layout.html.twig');
+    }
+
+    public function isSymfony21()
+    {
+        return '1' === Kernel::MINOR_VERSION;
     }
 
     public function registerService($name, $service)
