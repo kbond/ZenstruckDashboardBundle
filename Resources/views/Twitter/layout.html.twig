@@ -16,6 +16,7 @@
 
         <div class="container">
             <h1>{{ block('title') }}</h1>
+            {{ zenstruck_breadcrumbs() }}
             {% block body %}{% endblock %}
         </div>
 

@@ -20,6 +20,7 @@ class DashboardManager
     protected $theme;
     protected $dashboardTemplate;
     protected $layout;
+    protected $breadcrumbs = array();
 
     /** @var MenuItem */
     protected $menu;
@@ -161,6 +162,16 @@ class DashboardManager
 
         // use service's `__toString` method
         return (string) $service;
+    }
+
+    public function getBreadcrumbs()
+    {
+        return $this->breadcrumbs;
+    }
+
+    public function addBreadcrumb($label, $uri)
+    {
+        $this->breadcrumbs[$label] = $uri;
     }
 
     /**

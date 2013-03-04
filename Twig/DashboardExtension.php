@@ -34,6 +34,7 @@ class DashboardExtension extends \Twig_Extension
         return array(
             'zenstruck_widget' => new \Twig_Function_Method($this, 'renderWidget', array('is_safe' => array('html'))),
             'zenstruck_menu' => new \Twig_Function_Method($this, 'renderMenu', array('is_safe' => array('html'))),
+            'zenstruck_breadcrumbs' => new \Twig_Function_Method($this, 'renderBreadcrumbs', array('is_safe' => array('html')))
         );
     }
 
@@ -53,6 +54,13 @@ class DashboardExtension extends \Twig_Extension
     {
         return $this->environment->render($this->dashboard->getFullTemplateName('_menu.html.twig'), array(
                 'dashboard' => $this->dashboard
+            ));
+    }
+
+    public function renderBreadcrumbs()
+    {
+        return $this->environment->render($this->dashboard->getFullTemplateName('_breadcrumbs.html.twig'), array(
+                'items' => $this->dashboard->getBreadcrumbs()
             ));
     }
 }

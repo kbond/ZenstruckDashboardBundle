@@ -1,0 +1,8 @@
+{% if app.request.get('_route') != 'zenstruck_dashboard' %}
+    <ul class="breadcrumb">
+        <li><a href="{{ path('zenstruck_dashboard') }}">Dashboard</a> <span class="divider">/</span></li>
+        {% for name,uri in items %}
+            <li><a href="{{ uri }}">{{ name }}</a> <span class="divider">/</span></li>
+        {% endfor %}
+    </ul>
+{% endif %}
