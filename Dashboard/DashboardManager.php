@@ -4,6 +4,7 @@ namespace Zenstruck\Bundle\DashboardBundle\Dashboard;
 
 use Knp\Menu\MenuItem;
 use Knp\Menu\Silex\RouterAwareFactory;
+use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
@@ -18,6 +19,7 @@ class DashboardManager
     protected $securityContext;
     protected $services = array();
     protected $theme;
+    protected $themeOptions;
     protected $dashboardTemplate;
     protected $layout;
     protected $breadcrumbs = array();
@@ -31,6 +33,7 @@ class DashboardManager
         $this->urlGenerator = $urlGenerator;
         $this->securityContext = $securityContext;
         $this->theme = $config['theme'];
+        $this->themeOptions = new ParameterBag($config['theme_options']);
         $this->dashboardTemplate = $config['dashboard_template'] ? $config['dashboard_template'] : $this->getFullTemplateName('dashboard.html.twig');
         $this->layout = $config['layout'] ? $config['layout'] : $this->getFullTemplateName('layout.html.twig');
     }
@@ -73,6 +76,14 @@ class DashboardManager
     public function getTheme()
     {
         return $this->theme;
+    }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\ParameterBag
+     */
+    public function getThemeOptions()
+    {
+        return $this->themeOptions;
     }
 
     public function getTitle()
