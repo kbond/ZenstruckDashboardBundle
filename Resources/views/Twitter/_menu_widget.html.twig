@@ -1,7 +1,9 @@
+{% import "ZenstruckDashboardBundle:Twitter:_menu.html.twig" as macros %}
+
 <ul class="nav nav-list">
     {% for item in menu %}
         {% if item.uri %}
-            <li><a href="{{ item.uri }}">{{ item.label|raw }}</a></li>
+            {{ macros.bootstrap_menu_item(item) }}
         {% else %}
             {% if item.children|length %}
                 <li class="nav-header">{{ item.label|raw }}</li>
@@ -10,18 +12,7 @@
             {% endif %}
 
             {% for childItem in item.children %}
-                {% if childItem.uri %}
-                    <li>
-                        <a href="{{ childItem.uri }}">
-                            {% if childItem.extra('icon') %}
-                                <i class="{{ childItem.extra('icon') }}"></i>
-                            {% endif %}
-                            {{ childItem.label|raw }}
-                        </a>
-                    </li>
-                {% else %}
-                    <li class="divider"></li>
-                {% endif %}
+                {{ macros.bootstrap_menu_item(childItem) }}
             {% endfor %}
         {% endif %}
     {% endfor %}
