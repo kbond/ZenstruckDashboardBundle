@@ -182,7 +182,7 @@ class DashboardManager
 
     public function addBreadcrumb($label, $uri)
     {
-        $this->breadcrumbs[$label] = $uri;
+        $this->breadcrumbs[(string) $label] = $uri;
     }
 
     /**
