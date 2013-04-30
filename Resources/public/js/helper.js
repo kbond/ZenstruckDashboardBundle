@@ -11,6 +11,7 @@ var ZenstruckDashboardHelper = {
 
             $.ajax({
                 url: url,
+                cache: true,
                 success: function(data) {
                     $this.removeClass('dashboard-widget-ajax').html(data);
                 }
