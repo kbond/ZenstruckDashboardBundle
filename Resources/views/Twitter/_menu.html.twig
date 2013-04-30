@@ -1,9 +1,10 @@
 {% set inverse = dashboard.themeOptions.get('inverse', false) %}
 {% set nav_display = dashboard.themeOptions.get('nav_display', 'navbar-static-top') %}
+{% set nav_full = dashboard.themeOptions.get('nav_full', false) %}
 
 <div class="navbar {{ nav_display }}{{ inverse ? ' navbar-inverse' : null }}">
     <div class="navbar-inner">
-        <div class="container">
+        <div class="container{{ nav_full ? '-fluid' : null }}">
             <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
