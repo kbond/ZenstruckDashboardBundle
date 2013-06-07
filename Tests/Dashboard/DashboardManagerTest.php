@@ -53,8 +53,9 @@ class DashboardManagerTest extends \PHPUnit_Framework_TestCase
     {
         $security = $this->getMock('Symfony\Component\Security\Core\SecurityContextInterface');
         $urlGenerator = $this->getMock('Symfony\Component\Routing\Generator\UrlGeneratorInterface');
+        $container = $this->getMock('Symfony\Component\DependencyInjection\Container');
 
-        $manager = new DashboardManager($this->getConfig(), $urlGenerator, $security);
+        $manager = new DashboardManager($this->getConfig(), $urlGenerator, $security, $container);
         $manager->registerService('myservice', new MyService());
 
         return $manager;

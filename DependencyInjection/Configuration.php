@@ -4,7 +4,6 @@ namespace Zenstruck\Bundle\DashboardBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
-use Symfony\Component\HttpKernel\Kernel;
 
 class Configuration implements ConfigurationInterface
 {
@@ -63,6 +62,7 @@ class Configuration implements ConfigurationInterface
                     ->useAttributeAsKey('name')
                     ->prototype('array')
                         ->children()
+                            ->scalarNode('build')->defaultFalse()->end()
                             ->scalarNode('label')->defaultNull()->end()
                             ->scalarNode('group')->defaultValue('primary')->end()
                             ->scalarNode('icon')->defaultNull()->end()
