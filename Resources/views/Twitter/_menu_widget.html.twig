@@ -2,7 +2,7 @@
 
 <ul class="nav nav-list">
     {% for item in menu %}
-        {% if item.uri != '#' %}
+        {% if item.uri != '#' and item.uri %}
             {{ macros.bootstrap_menu_item(item) }}
         {% else %}
             {% if item.children|length %}
