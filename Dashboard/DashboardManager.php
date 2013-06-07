@@ -27,7 +27,7 @@ class DashboardManager
     /** @var MenuItem */
     protected $menu;
 
-    public function __construct($config, UrlGeneratorInterface $urlGenerator, SecurityContextInterface $securityContext, $menuBuilder)
+    public function __construct($config, UrlGeneratorInterface $urlGenerator, SecurityContextInterface $securityContext, $container)
     {
         $this->config = $config;
         $this->urlGenerator = $urlGenerator;
@@ -36,7 +36,13 @@ class DashboardManager
         $this->themeOptions = new ParameterBag($config['theme_options']);
         $this->dashboardTemplate = $config['dashboard_template'] ? $config['dashboard_template'] : $this->getFullTemplateName('dashboard.html.twig');
         $this->layout = $config['layout'] ? $config['layout'] : $this->getFullTemplateName('layout.html.twig');
-        $this->menu = $menuBuilder;
+        foreach ($config['menu'] as $key => $menu) {
+            if ($menu['build']) {
+                if ($container->has($key)) {
+                    $this->menu = $container->get($key);
+                }
+            }
+        }
     }
 
     public function isSymfony21()

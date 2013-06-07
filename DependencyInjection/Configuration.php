@@ -62,6 +62,7 @@ class Configuration implements ConfigurationInterface
                     ->useAttributeAsKey('name')
                     ->prototype('array')
                         ->children()
+                            ->scalarNode('build')->defaultFalse()->end()
                             ->scalarNode('label')->defaultNull()->end()
                             ->scalarNode('group')->defaultValue('primary')->end()
                             ->scalarNode('icon')->defaultNull()->end()
@@ -82,7 +83,6 @@ class Configuration implements ConfigurationInterface
                         ->end()
                     ->end()
                 ->end()
-                ->scalarNode('menu_builder')->defaultNull()->end()
             ->end()
         ;
 
