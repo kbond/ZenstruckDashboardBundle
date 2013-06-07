@@ -15,6 +15,7 @@
             <argument>%zenstruck_dashboard.config%</argument>
             <argument type="service" id="router" />
             <argument type="service" id="security.context" />
+            <argument type="service" id="%zenstruck_dashboard.config.menu_builder%"  on-invalid="ignore" />
         </service>
 
         <service id="zenstruck_dashboard.controller" class="%zenstruck_dashboard.controller.class%">
