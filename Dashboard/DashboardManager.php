@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
+use Zenstruck\Bundle\DashboardBundle\Dashboard\Service\MenuProviderInterface;
 
 /**
  * @author Kevin Bond <kevinbond@gmail.com>
@@ -36,6 +37,11 @@ class DashboardManager
         $this->themeOptions = new ParameterBag($config['theme_options']);
         $this->dashboardTemplate = $config['dashboard_template'] ? $config['dashboard_template'] : $this->getFullTemplateName('dashboard.html.twig');
         $this->layout = $config['layout'] ? $config['layout'] : $this->getFullTemplateName('layout.html.twig');
+    }
+
+    public function setMenu(MenuProviderInterface $provider)
+    {
+        $this->menu = $provider->getMenu();
     }
 
     public function isSymfony21()

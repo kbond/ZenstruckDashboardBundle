@@ -27,6 +27,7 @@ class Configuration implements ConfigurationInterface
                 ->variableNode('theme_options')->defaultValue(array())->end()
                 ->scalarNode('dashboard_template')->defaultNull()->end()
                 ->scalarNode('layout')->defaultNull()->end()
+                ->scalarNode('menu_service')->defaultNull()->end()
                 ->arrayNode('widgets')
                     ->useAttributeAsKey('name')
                     ->prototype('array')

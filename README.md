@@ -40,8 +40,10 @@ zenstruck_dashboard:
     user_service:         false
     title:                Administration
     theme:                ZenstruckDashboardBundle:Twitter
+    theme_options:        []
     dashboard_template:   ~
     layout:               ~
+    menu_service:         ~
     widgets:
 
         # Prototype
