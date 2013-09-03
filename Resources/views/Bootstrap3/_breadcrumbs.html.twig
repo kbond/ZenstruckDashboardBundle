@@ -1,1 +1,8 @@
-{% extends 'ZenstruckDashboardBundle:Bootstrap2:_breadcrumbs.html.twig' %}
+{% if app.request.get('_route') != 'zenstruck_dashboard' %}
+    <ol class="breadcrumb">
+        <li><a href="{{ path('zenstruck_dashboard') }}">Dashboard</a></li>
+        {% for name,uri in items %}
+            <li><a href="{{ uri }}">{{ name }}</a></li>
+        {% endfor %}
+    </ol>
+{% endif %}
