@@ -1,0 +1,19 @@
+{% import "ZenstruckDashboardBundle:Bootstrap3:_menu.html.twig" as macros %}
+
+<ul class="nav nav-list">
+    {% for item in menu %}
+        {% if item.uri %}
+            {{ macros.bootstrap_menu_item(item) }}
+        {% else %}
+            {% if item.children|length %}
+                <li class="nav-header">{{ item.label|raw }}</li>
+            {% else %}
+                <li class="divider"></li>
+            {% endif %}
+
+            {% for childItem in item.children %}
+                {{ macros.bootstrap_menu_item(childItem) }}
+            {% endfor %}
+        {% endif %}
+    {% endfor %}
+</ul>

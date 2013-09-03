@@ -1,0 +1,20 @@
+{% if 'template' == widget.content_type %}
+    {% include widget.content with widget %}
+{% elseif 'controller' == widget.content_type %}
+    {% if 'hinclude' == widget.include_type %}
+        {{ render_hinclude(controller(widget.content, widget.params)) }}
+    {% elseif 'esi' == widget.include_type %}
+        {{ render_esi(controller(widget.content, widget.params)) }}
+    {% else %}
+        {{ render(controller(widget.content, widget.params)) }}
+    {% endif %}
+{% elseif 'route' == widget.content_type %}
+    {% set url = url(widget.content, widget.params) %}
+    {% if 'hinclude' == widget.include_type %}
+        {{ render_hinclude(url) }}
+    {% elseif 'esi' == widget.include_type %}
+        {{ render_esi(url) }}
+    {% else %}
+        {{ render(url) }}
+    {% endif %}
+{% endif %}

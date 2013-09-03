@@ -1,0 +1,33 @@
+<div class="row">
+    {% set column1 = manager.widgets('column1') %}
+    {% set column2 = manager.widgets('column2') %}
+    {% set column3 = manager.widgets('column3') %}
+
+    {% if not column1|length and not column2|length and not column3|length %}
+        <div class="col-lg-12">
+            {{ _self.widget_column(manager.widgets) }}
+        </div>
+    {% else %}
+        {% if column1|length %}
+            <div class="{{ manager.themeOptions.get('column1width', 'col-lg-4') }}">
+                {{ _self.widget_column(column1) }}
+            </div>
+        {% endif %}
+        {% if column2|length %}
+            <div class="{{ manager.themeOptions.get('column2width', 'col-lg-4') }}">
+                {{ _self.widget_column(column2) }}
+            </div>
+        {% endif %}
+        {% if column3|length %}
+            <div class="{{ manager.themeOptions.get('column3width', 'col-lg-4') }}">
+                {{ _self.widget_column(column3) }}
+            </div>
+        {% endif %}
+    {% endif %}
+</div>
+
+{% macro widget_column(widgets) %}
+    {% for name,widget in widgets %}
+        {{ zenstruck_widget(name) }}
+    {% endfor %}
+{% endmacro %}

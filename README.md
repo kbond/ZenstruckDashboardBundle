@@ -39,7 +39,7 @@ Provides a configurable administration menu and dashboard with customizable widg
 zenstruck_dashboard:
     user_service:         false
     title:                Administration
-    theme:                ZenstruckDashboardBundle:Twitter
+    theme:                ZenstruckDashboardBundle:Bootstrap2
     theme_options:        []
     dashboard_template:   ~
     layout:               ~
