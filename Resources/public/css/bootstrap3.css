@@ -1,3 +1,7 @@
+.navbar {
+    margin-bottom: 0;
+}
+
 .nav-list li a {
     padding: 3px 15px;
 }
