@@ -1,0 +1,7 @@
+{% extends manager.layout %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block body %}
+    {% include 'ZenstruckDashboardBundle:Bootstrap2:_dashboard_inner.html.twig' with { 'manager': manager } %}
+{% endblock %}

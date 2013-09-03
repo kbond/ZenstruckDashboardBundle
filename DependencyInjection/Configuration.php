@@ -23,7 +23,7 @@ class Configuration implements ConfigurationInterface
             ->children()
                 ->booleanNode('user_service')->defaultFalse()->end()
                 ->scalarNode('title')->defaultValue('Administration')->end()
-                ->scalarNode('theme')->defaultValue('ZenstruckDashboardBundle:Twitter')->end()
+                ->scalarNode('theme')->defaultValue('ZenstruckDashboardBundle:Bootstrap2')->end()
                 ->variableNode('theme_options')->defaultValue(array())->end()
                 ->scalarNode('dashboard_template')->defaultNull()->end()
                 ->scalarNode('layout')->defaultNull()->end()

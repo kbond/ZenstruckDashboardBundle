@@ -44,11 +44,6 @@ class DashboardManager
         $this->menu = $provider->getMenu();
     }
 
-    public function isSymfony21()
-    {
-        return '1' === Kernel::MINOR_VERSION;
-    }
-
     public function registerService($name, $service)
     {
         $this->services[$name] = $service;
