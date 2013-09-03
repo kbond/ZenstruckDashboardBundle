@@ -16,7 +16,7 @@ class DashboardManagerTest extends \PHPUnit_Framework_TestCase
     {
         $manager = $this->getManager();
 
-        $this->assertEquals('ZenstruckDashboardBundle:Twitter:_foo.html.twig', $manager->getFullTemplateName('_foo.html.twig'));
+        $this->assertEquals('ZenstruckDashboardBundle:Bootstrap2:_foo.html.twig', $manager->getFullTemplateName('_foo.html.twig'));
     }
 
     public function testGetMenu()
