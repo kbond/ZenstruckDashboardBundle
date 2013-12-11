@@ -5,7 +5,6 @@ namespace Zenstruck\Bundle\DashboardBundle\Dashboard;
 use Knp\Menu\MenuItem;
 use Knp\Menu\Silex\RouterAwareFactory;
 use Symfony\Component\HttpFoundation\ParameterBag;
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use Zenstruck\Bundle\DashboardBundle\Dashboard\Service\MenuProviderInterface;
@@ -98,7 +97,7 @@ class DashboardManager
             return $this->config['widgets'];
         }
 
-        return array_filter($this->config['widgets'], function($item) use ($group) {
+        return array_filter($this->config['widgets'], function ($item) use ($group) {
                 return $group === $item['group'];
             });
     }
@@ -132,7 +131,7 @@ class DashboardManager
             return $menu;
         }
 
-        $menu = array_filter($menu->getChildren(), function(MenuItem $item) use ($group) {
+        $menu = array_filter($menu->getChildren(), function (MenuItem $item) use ($group) {
                 return $group === $item->getExtra('group');
             });
 
@@ -246,7 +245,7 @@ class DashboardManager
         $context = $this;
 
         // check for {{foo}} or {{foo:bar}} syntax
-        $text = preg_replace_callback('/{{(\w+)(:(\w+))?}}/', function($matches) use ($context) {
+        $text = preg_replace_callback('/{{(\w+)(:(\w+))?}}/', function ($matches) use ($context) {
                 $alias = $matches[1];
                 $method = null;
 

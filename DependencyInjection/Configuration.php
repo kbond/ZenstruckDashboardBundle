@@ -4,7 +4,6 @@ namespace Zenstruck\Bundle\DashboardBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
-use Symfony\Component\HttpKernel\Kernel;
 
 class Configuration implements ConfigurationInterface
 {
@@ -55,7 +54,7 @@ class Configuration implements ConfigurationInterface
                             ->variableNode('params')->defaultValue(array())->end()
                         ->end()
                         ->validate()
-                            ->ifTrue(function($v) { return 'ajax' === $v['include_type'] && 'route' !== $v['content_type']; })
+                            ->ifTrue(function ($v) { return 'ajax' === $v['include_type'] && 'route' !== $v['content_type']; })
                             ->thenInvalid('include_type ajax requires content_type route')
                         ->end()
                     ->end()
