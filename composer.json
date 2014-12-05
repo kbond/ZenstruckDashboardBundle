@@ -13,7 +13,7 @@
     ],
     "require": {
         "symfony/symfony": "~2.2",
-        "knplabs/knp-menu": ">=1.1"
+        "knplabs/knp-menu": "~1.1"
     },
     "autoload": {
         "psr-0": { "Zenstruck\\Bundle\\DashboardBundle": "" }
