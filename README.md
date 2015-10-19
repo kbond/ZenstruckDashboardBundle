@@ -4,7 +4,7 @@ Provides a configurable administration menu and dashboard with customizable widg
 
 [![Screenshot][1]][2]
 
-[View Demo][2]
+[View Example Source Code][2]
 
 ## Installation
 
@@ -80,4 +80,4 @@ zenstruck_dashboard:
 ```
 
 [1]: https://lh5.googleusercontent.com/-TmZs6sGhZBU/UTEd0bKCJrI/AAAAAAAAKE0/lKclhxNEYec/s969/zenstruckdashboardbundle.jpg
-[2]: http://sandbox.zenstruck.com/
+[2]: https://github.com/kbond/sandbox
