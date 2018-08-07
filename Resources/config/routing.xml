@@ -4,7 +4,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
-    <route id="zenstruck_dashboard" pattern="/">
+    <route id="zenstruck_dashboard" path="/">
         <default key="_controller">zenstruck_dashboard.controller:dashboardAction</default>
     </route>
 </routes>
