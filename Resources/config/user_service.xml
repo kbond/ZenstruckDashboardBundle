@@ -10,7 +10,7 @@
 
     <services>
         <service id="zenstruck_dashboard.user_service" class="%zenstruck_dashboard.user_service.class%">
-            <argument type="service" id="security.context" />
+            <argument type="service" id="security.token_storage" />
             <tag name="zenstruck_dashboard.service" alias="user" />
         </service>
     </services>

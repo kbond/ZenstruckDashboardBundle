@@ -2,7 +2,9 @@
 
 namespace Zenstruck\Bundle\DashboardBundle\Dashboard\Tests\Dashboard;
 
+use Knp\Menu\MenuFactory;
 use Symfony\Component\Config\Definition\Processor;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Zenstruck\Bundle\DashboardBundle\Dashboard\DashboardManager;
 use Zenstruck\Bundle\DashboardBundle\Tests\Fixtures\MyService;
 use Zenstruck\Bundle\DashboardBundle\DependencyInjection\Configuration;
@@ -51,10 +53,9 @@ class DashboardManagerTest extends \PHPUnit_Framework_TestCase
 
     protected function getManager()
     {
-        $security = $this->getMock('Symfony\Component\Security\Core\SecurityContextInterface');
-        $urlGenerator = $this->getMock('Symfony\Component\Routing\Generator\UrlGeneratorInterface');
+        $authChecker = $this->createMock(AuthorizationCheckerInterface::class);
 
-        $manager = new DashboardManager($this->getConfig(), $urlGenerator, $security);
+        $manager = new DashboardManager($this->getConfig(), new MenuFactory(), $authChecker);
         $manager->registerService('myservice', new MyService());
 
         return $manager;

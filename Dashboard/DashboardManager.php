@@ -2,12 +2,10 @@
 
 namespace Zenstruck\Bundle\DashboardBundle\Dashboard;
 
+use Knp\Menu\FactoryInterface;
 use Knp\Menu\MenuItem;
-use Knp\Menu\Silex\RouterAwareFactory;
 use Symfony\Component\HttpFoundation\ParameterBag;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Security\Core\SecurityContextInterface;
-use Zenstruck\Bundle\DashboardBundle\Dashboard\Service\MenuProviderInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
  * @author Kevin Bond <kevinbond@gmail.com>
@@ -15,8 +13,8 @@ use Zenstruck\Bundle\DashboardBundle\Dashboard\Service\MenuProviderInterface;
 class DashboardManager
 {
     protected $config;
-    protected $urlGenerator;
-    protected $securityContext;
+    protected $menuFactory;
+    protected $authorizationChecker;
     protected $services = array();
     protected $theme;
     protected $themeOptions;
@@ -27,20 +25,15 @@ class DashboardManager
     /** @var MenuItem */
     protected $menu;
 
-    public function __construct($config, UrlGeneratorInterface $urlGenerator, SecurityContextInterface $securityContext)
+    public function __construct($config, FactoryInterface $menuFactory, AuthorizationCheckerInterface $authorizationChecker)
     {
         $this->config = $config;
-        $this->urlGenerator = $urlGenerator;
-        $this->securityContext = $securityContext;
+        $this->menuFactory = $menuFactory;
+        $this->authorizationChecker = $authorizationChecker;
         $this->theme = $config['theme'];
         $this->themeOptions = new ParameterBag($config['theme_options']);
         $this->dashboardTemplate = $config['dashboard_template'] ? $config['dashboard_template'] : $this->getFullTemplateName('dashboard.html.twig');
         $this->layout = $config['layout'] ? $config['layout'] : $this->getFullTemplateName('layout.html.twig');
-    }
-
-    public function setMenu(MenuProviderInterface $provider)
-    {
-        $this->menu = $provider->getMenu();
     }
 
     public function registerService($name, $service)
@@ -111,7 +104,7 @@ class DashboardManager
         $widget = $this->config['widgets'][$name];
 
         // security check
-        if (($widget['role'] && $this->securityContext->getToken() && $this->securityContext->isGranted($widget['role'])) || !$widget['role']) {
+        if (($widget['role'] && $this->authorizationChecker->isGranted($widget['role'])) || !$widget['role']) {
             return $widget;
         }
 
@@ -194,7 +187,7 @@ class DashboardManager
             return $this->menu;
         }
 
-        $menu = new MenuItem('root', new RouterAwareFactory($this->urlGenerator));
+        $menu = new MenuItem('root', $this->menuFactory);
 
         foreach ($this->config['menu'] as $sectionName => $section) {
             $nested = true;
@@ -215,7 +208,7 @@ class DashboardManager
 
             foreach ($section['items'] as $itemName => $item) {
                 // security check
-                if (($item['role'] && $this->securityContext->getToken() && $this->securityContext->isGranted($item['role'])) || !$item['role']) {
+                if (($item['role'] && $this->authorizationChecker->isGranted($item['role'])) || !$item['role']) {
                     $menuItem = $subMenu->addChild($itemName, $item);
                     $menuItem->setExtra('group', $section['group']);
                     $label = $item['label'] ? $item['label'] : $itemName;

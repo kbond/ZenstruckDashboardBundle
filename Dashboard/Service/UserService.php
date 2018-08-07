@@ -2,18 +2,18 @@
 
 namespace Zenstruck\Bundle\DashboardBundle\Dashboard\Service;
 
-use Symfony\Component\Security\Core\SecurityContextInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
  * @author Kevin Bond <kevinbond@gmail.com>
  */
 class UserService
 {
-    protected $securityContext;
+    protected $tokenStorage;
 
-    public function __construct(SecurityContextInterface $securityContext)
+    public function __construct(TokenStorageInterface $tokenStorage)
     {
-        $this->securityContext = $securityContext;
+        $this->tokenStorage = $tokenStorage;
     }
 
     public function __toString()
@@ -23,7 +23,7 @@ class UserService
 
     public function getUser()
     {
-        $token = $this->securityContext->getToken();
+        $token = $this->tokenStorage->getToken();
 
         if (!$token) {
             return 'anon.';

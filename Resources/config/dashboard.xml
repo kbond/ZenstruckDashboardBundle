@@ -13,8 +13,8 @@
     <services>
         <service id="zenstruck_dashboard.manager" class="%zenstruck_dashboard.manager.class%">
             <argument>%zenstruck_dashboard.config%</argument>
-            <argument type="service" id="router" />
-            <argument type="service" id="security.context" />
+            <argument type="service" id="knp_menu.factory" />
+            <argument type="service" id="security.authorization_checker" />
         </service>
 
         <service id="zenstruck_dashboard.controller" class="%zenstruck_dashboard.controller.class%">
