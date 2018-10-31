@@ -1,3 +1,5 @@
+{% import _self as macros %}
+
 {% set inverse = dashboard.themeOptions.get('inverse', false) %}
 {% set nav_display = dashboard.themeOptions.get('nav_display', 'navbar-static-top') %}
 {% set nav_full = dashboard.themeOptions.get('nav_full', false) %}
@@ -15,13 +17,13 @@
 
             <div class="nav-collapse collapse">
                 <ul class="nav">
-                    {{ _self.bootstrap_menu(dashboard.menu('primary'), inverse) }}
+                    {{ macros.bootstrap_menu(dashboard.menu('primary'), inverse) }}
                 </ul>
 
                 {% set secondaryMenu = dashboard.menu('secondary') %}
                 {% if secondaryMenu|length %}
                     <ul class="nav pull-right">
-                        {{ _self.bootstrap_menu(secondaryMenu, inverse) }}
+                        {{ macros.bootstrap_menu(secondaryMenu, inverse) }}
                     </ul>
                 {% endif %}
             </div>
@@ -30,10 +32,12 @@
 </div>
 
 {% macro bootstrap_menu(menu, inverse = false) %}
+    {% import _self as macros %}
+
     {% for section in menu %}
         {% spaceless %}
             {% if section.extra('flat') %}
-                {{ _self.bootstrap_menu_item(section, inverse) }}
+                {{ macros.bootstrap_menu_item(section, inverse) }}
             {% else %}
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -45,7 +49,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         {% for item in section %}
-                            {{ _self.bootstrap_menu_item(item) }}
+                            {{ macros.bootstrap_menu_item(item) }}
                         {% endfor %}
                     </ul>
                 </li>

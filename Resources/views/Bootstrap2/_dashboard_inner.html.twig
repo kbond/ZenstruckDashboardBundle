@@ -1,3 +1,5 @@
+{% import _self as macros %}
+
 <div class="row">
     {% set column1 = manager.widgets('column1') %}
     {% set column2 = manager.widgets('column2') %}
@@ -5,22 +7,22 @@
 
     {% if not column1|length and not column2|length and not column3|length %}
         <div class="span12">
-            {{ _self.widget_column(manager.widgets) }}
+            {{ macros.widget_column(manager.widgets) }}
         </div>
     {% else %}
         {% if column1|length %}
             <div class="{{ manager.themeOptions.get('column1width', 'span4') }}">
-                {{ _self.widget_column(column1) }}
+                {{ macros.widget_column(column1) }}
             </div>
         {% endif %}
         {% if column2|length %}
             <div class="{{ manager.themeOptions.get('column2width', 'span4') }}">
-                {{ _self.widget_column(column2) }}
+                {{ macros.widget_column(column2) }}
             </div>
         {% endif %}
         {% if column3|length %}
             <div class="{{ manager.themeOptions.get('column3width', 'span4') }}">
-                {{ _self.widget_column(column3) }}
+                {{ macros.widget_column(column3) }}
             </div>
         {% endif %}
     {% endif %}
