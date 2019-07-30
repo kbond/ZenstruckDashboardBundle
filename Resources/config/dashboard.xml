@@ -11,6 +11,8 @@
     </parameters>
 
     <services>
+        <defaults public="true" />
+
         <service id="zenstruck_dashboard.manager" class="%zenstruck_dashboard.manager.class%">
             <argument>%zenstruck_dashboard.config%</argument>
             <argument type="service" id="knp_menu.factory" />
