@@ -35,26 +35,24 @@
     {% import _self as macros %}
 
     {% for section in menu %}
-        {% spaceless %}
-            {% if section.extra('flat') %}
-                {{ macros.bootstrap_menu_item(section, inverse) }}
-            {% else %}
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        {%- if section.extra('icon') %}
-                            <i class="{{ section.extra('icon') ~ (inverse ? ' icon-white' : null) }}"></i>
-                        {% endif %}
-                        {{ section.label|raw }}
-                        <b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu">
-                        {% for item in section %}
-                            {{ macros.bootstrap_menu_item(item) }}
-                        {% endfor %}
-                    </ul>
-                </li>
-            {% endif %}
-        {% endspaceless %}
+        {% if section.extra('flat') %}
+            {{ macros.bootstrap_menu_item(section, inverse) }}
+        {% else %}
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    {%- if section.extra('icon') %}
+                        <i class="{{ section.extra('icon') ~ (inverse ? ' icon-white' : null) }}"></i>
+                    {% endif %}
+                    {{ section.label|raw }}
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    {% for item in section %}
+                        {{ macros.bootstrap_menu_item(item) }}
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endif %}
     {% endfor %}
 {% endmacro %}
 
