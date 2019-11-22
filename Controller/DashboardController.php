@@ -3,15 +3,15 @@
 namespace Zenstruck\Bundle\DashboardBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Templating\EngineInterface;
 use Zenstruck\Bundle\DashboardBundle\Dashboard\DashboardManager;
+use Twig\Environment;
 
 class DashboardController
 {
     protected $templating;
     protected $dashboardManager;
 
-    public function __construct(EngineInterface $templating, DashboardManager $dashboardManager)
+    public function __construct(Environment $templating, DashboardManager $dashboardManager)
     {
         $this->templating = $templating;
         $this->dashboardManager = $dashboardManager;

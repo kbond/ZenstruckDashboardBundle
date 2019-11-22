@@ -20,7 +20,7 @@
         </service>
 
         <service id="zenstruck_dashboard.controller" class="%zenstruck_dashboard.controller.class%">
-            <argument type="service" id="templating" />
+            <argument type="service" id="twig" />
             <argument type="service" id="zenstruck_dashboard.manager" />
         </service>
 
