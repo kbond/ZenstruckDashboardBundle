@@ -63,7 +63,7 @@ class DashboardManager
 
     public function getFullTemplateName($template)
     {
-        return trim($this->getTheme(), ':').':'.$template;
+        return trim($this->getTheme(), '/').'/'.$template;
     }
 
     public function getTheme()
