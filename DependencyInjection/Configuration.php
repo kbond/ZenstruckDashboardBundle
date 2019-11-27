@@ -12,8 +12,14 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('zenstruck_dashboard');
+        $treeBuilder = new TreeBuilder('zenstruck_dashboard');
+
+        // Keep compatibility with symfony/config < 4.2
+        if (\method_exists($treeBuilder, 'getRootNode')) {
+            $rootNode = $treeBuilder->getRootNode();
+        } else {
+            $rootNode = $treeBuilder->root('zenstruck_dashboard');
+        }
 
         $widgetContentTypes = array('route', 'controller', 'template');
         $widgetIncludeTypes = array('embed', 'hinclude', 'esi', 'ajax');
