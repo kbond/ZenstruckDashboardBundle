@@ -1,6 +1,6 @@
 <?php
 
-namespace Zenstruck\Bundle\DashboardBundle\Dashboard\Tests\Dashboard;
+namespace Zenstruck\Bundle\DashboardBundle\Tests\Dashboard;
 
 use Knp\Menu\MenuFactory;
 use Symfony\Component\Config\Definition\Processor;
