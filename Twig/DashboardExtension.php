@@ -2,12 +2,15 @@
 
 namespace Zenstruck\Bundle\DashboardBundle\Twig;
 
+use Twig\Environment;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 use Zenstruck\Bundle\DashboardBundle\Dashboard\DashboardManager;
 
 /**
  * @author Kevin Bond <kevinbond@gmail.com>
  */
-class DashboardExtension extends \Twig_Extension
+class DashboardExtension extends AbstractExtension
 {
     protected $dashboard;
 
@@ -19,13 +22,13 @@ class DashboardExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('zenstruck_widget', [$this, 'renderWidget'], array('needs_environment' => true, 'is_safe' => array('html'))),
-            new \Twig_SimpleFunction('zenstruck_menu', [$this, 'renderMenu'], array('needs_environment' => true, 'is_safe' => array('html'))),
-            new \Twig_SimpleFunction('zenstruck_breadcrumbs', [$this, 'renderBreadcrumbs'], array('needs_environment' => true, 'is_safe' => array('html'))),
+            new TwigFunction('zenstruck_widget', [$this, 'renderWidget'], array('needs_environment' => true, 'is_safe' => array('html'))),
+            new TwigFunction('zenstruck_menu', [$this, 'renderMenu'], array('needs_environment' => true, 'is_safe' => array('html'))),
+            new TwigFunction('zenstruck_breadcrumbs', [$this, 'renderBreadcrumbs'], array('needs_environment' => true, 'is_safe' => array('html'))),
         );
     }
 
-    public function renderWidget(\Twig_Environment $environment, $name)
+    public function renderWidget(Environment $environment, $name)
     {
         if ($widget = $this->dashboard->getWidget($name)) {
             return $environment->render($this->dashboard->getFullTemplateName('_widget.html.twig'), array(
@@ -37,14 +40,14 @@ class DashboardExtension extends \Twig_Extension
         return null;
     }
 
-    public function renderMenu(\Twig_Environment $environment)
+    public function renderMenu(Environment $environment)
     {
         return $environment->render($this->dashboard->getFullTemplateName('_menu.html.twig'), array(
                 'dashboard' => $this->dashboard
             ));
     }
 
-    public function renderBreadcrumbs(\Twig_Environment $environment)
+    public function renderBreadcrumbs(Environment $environment)
     {
         return $environment->render($this->dashboard->getFullTemplateName('_breadcrumbs.html.twig'), array(
                 'items' => $this->dashboard->getBreadcrumbs()
