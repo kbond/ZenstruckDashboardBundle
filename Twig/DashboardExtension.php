@@ -19,7 +19,7 @@ class DashboardExtension extends AbstractExtension
         $this->dashboard = $dashboard;
     }
 
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return array(
             new TwigFunction('zenstruck_widget', [$this, 'renderWidget'], array('needs_environment' => true, 'is_safe' => array('html'))),
