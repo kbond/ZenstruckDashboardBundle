@@ -3,6 +3,7 @@
 namespace Zenstruck\Bundle\DashboardBundle\Tests\Dashboard;
 
 use Knp\Menu\MenuFactory;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Zenstruck\Bundle\DashboardBundle\Dashboard\DashboardManager;
@@ -12,7 +13,7 @@ use Zenstruck\Bundle\DashboardBundle\DependencyInjection\Configuration;
 /**
  * @author Kevin Bond <kevinbond@gmail.com>
  */
-class DashboardManagerTest extends \PHPUnit_Framework_TestCase
+class DashboardManagerTest extends TestCase
 {
     public function testGetFullTemplateName()
     {

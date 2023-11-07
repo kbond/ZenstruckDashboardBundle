@@ -8,7 +8,7 @@ use Zenstruck\Bundle\DashboardBundle\DependencyInjection\Compiler\ServiceCompile
 
 class ZenstruckDashboardBundle extends Bundle
 {
-    public function build(ContainerBuilder $container)
+    public function build(ContainerBuilder $container): void
     {
         parent::build($container);
 

@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
  */
 class ServiceCompilerPass implements CompilerPassInterface
 {
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->hasDefinition('zenstruck_dashboard.manager')) {
             return;
